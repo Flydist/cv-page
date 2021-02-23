@@ -7,6 +7,5 @@ export const ItemHeader = styled.h1`
   margin-bottom: 1.5rem;
 `
 export const ItemBlock = styled.div`
-  margin-bottom: 2.5rem;
-  margin-right: 2.5rem;
+  margin: 0 auto 2.5rem auto;
 `

@@ -1,8 +1,10 @@
+import Container from 'react-bootstrap/esm/Container'
 import styled from 'styled-components'
-import { Container } from '../../../../common/common.styled'
 import { StyledInput } from '../../../../components/Input/Input.styled'
 
-export const StyledContainer = styled(Container)``
+export const StyledContainer = styled(Container)`
+  margin-top: 2.5rem;
+`
 
 type StringsListType = {
   fw?: number
@@ -49,6 +51,7 @@ export const Experience = styled(PortfolioLink)`
 `
 
 export const ExpInput = styled(StyledInput)`
-  margin-left: 0.3rem;
-  width: 20%;
+  display: inline-block;
+  margin: 0 0 0 0.2rem;
+  width: 2em;
 `
