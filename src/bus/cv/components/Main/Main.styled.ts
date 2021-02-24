@@ -1,6 +1,5 @@
 import Container from 'react-bootstrap/esm/Container'
 import styled from 'styled-components'
-import { StyledInput } from '../../../../components/Input/Input.styled'
 
 export const StyledContainer = styled(Container)`
   margin-top: 2.5rem;
@@ -36,22 +35,4 @@ export const PortfolioLink = styled.a`
     cursor: pointer;
     border-bottom: none;
   }
-`
-
-export const Experience = styled(PortfolioLink)`
-  margin-left: 0.3rem;
-  border-bottom: 1px dashed;
-
-  :hover {
-    text-decoration: none;
-    color: rgba(235, 87, 87, 1);
-    cursor: pointer;
-    border-bottom: none;
-  }
-`
-
-export const ExpInput = styled(StyledInput)`
-  display: inline-block;
-  margin: 0 0 0 0.2rem;
-  width: 2em;
 `

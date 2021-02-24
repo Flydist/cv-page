@@ -1,10 +1,9 @@
 import React, { useState, FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { InputContainer, StyledInput } from '../../../../components/Input/Input.styled'
-import { AppState } from '../../../../init/rootReducer'
-import { CvState } from '../../../../reducers/CvReducer'
 import { setFullname } from '../../actions'
+import { useCvState } from '../../hooks/useCvState'
 import { FullnameContainer, Fullname } from './FullnameInput.styled'
 
 export const FullnameInput: FC = () => {
@@ -12,7 +11,7 @@ export const FullnameInput: FC = () => {
     mode: 'onChange',
   })
   const dispatch = useDispatch()
-  const { fullname } = useSelector<AppState, CvState>((state) => state.CvReducer)
+  const { fullname } = useCvState()
   const [isFullnameInputShown, setIsFullnameInputShown] = useState(false)
   return (
     <FullnameContainer>

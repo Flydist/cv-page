@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
-import { AppState } from '../../../../init/rootReducer'
-import { CvState } from '../../../../reducers/CvReducer'
 import { addNewSkill, deleteSkill } from '../../actions'
+import { useCvState } from '../../hooks/useCvState'
 import {
   AddSkillButton, Skill, SkillInput, SkillsBlock,
 } from './SkillsList.styled'
@@ -11,7 +10,7 @@ import {
 export const SkillsList: FC = () => {
   const [isInputShown, setIsInputShown] = useState(false)
   const dispatch = useDispatch()
-  const { skills } = useSelector<AppState, CvState>((state) => state.CvReducer)
+  const { skills } = useCvState()
   return (
     <SkillsBlock>
       {skills

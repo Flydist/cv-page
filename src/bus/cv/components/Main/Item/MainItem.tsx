@@ -8,7 +8,7 @@ type ItemProps = {
 
 export const MainItem: FC<ItemProps> = ({ itemHeader, children }) => (
   <ItemBlock>
-    <ItemHeader>{itemHeader}</ItemHeader>
+    {itemHeader && <ItemHeader>{itemHeader}</ItemHeader>}
     {children}
   </ItemBlock>
 )

@@ -1,14 +1,13 @@
 import React, { FC, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { StyledInput } from '../../../../components/Input/Input.styled'
-import { AppState } from '../../../../init/rootReducer'
-import { CvState } from '../../../../reducers/CvReducer'
 import { setLocation } from '../../actions'
+import { useCvState } from '../../hooks/useCvState'
 import { UserLocation } from './LocationInput.styled'
 
 export const LocationInput: FC = () => {
   const [isLocationInputShown, setIsLocationInputShown] = useState(false)
-  const { location } = useSelector<AppState, CvState>((state) => state.CvReducer)
+  const { location } = useCvState()
   const dispatch = useDispatch()
   return (
     <div>

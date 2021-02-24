@@ -24,10 +24,6 @@ export const StyledInput = styled.input<StyledInputProps>`
   border-bottom: 1px solid transparent;
   width: 100%;
 
-  :hover {
-    background-color: rgba(0, 0, 0, 0.06);
-  }
-
   :focus {
     outline: none;
     background-color: rgba(0, 0, 0, 0.06);
