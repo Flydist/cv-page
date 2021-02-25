@@ -7,8 +7,6 @@ type QuotesProps = {
 
 export const QuotesBlock: FC<QuotesProps> = ({ text }) => (
   <QuotesContent>
-    <p>
-      {text}
-    </p>
+    <p>{text}</p>
   </QuotesContent>
 )

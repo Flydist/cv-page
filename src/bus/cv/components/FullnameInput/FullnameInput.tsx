@@ -1,20 +1,30 @@
 import React, { useState, FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { InputContainer, StyledInput } from '../../../../components/Input/Input.styled'
+import { useDispatch, useSelector } from 'react-redux'
+import { ContentContainer } from '../../../../components/Common.styled'
+import { InputContainer, StyledInput } from '../../../../components/Input.styled'
+import { fullnameRule } from '../../../../constants/constants'
+import { AppState } from '../../../../init/rootReducer'
 import { setFullname } from '../../actions'
-import { useCvState } from '../../hooks/useCvState'
-import { FullnameContainer, Fullname } from './FullnameInput.styled'
+import { Fullname } from './FullnameInput.styled'
 
 export const FullnameInput: FC = () => {
   const { register, errors } = useForm({
     mode: 'onChange',
   })
   const dispatch = useDispatch()
-  const { fullname } = useCvState()
+  const fullname = useSelector<AppState, string>((state) => state.CvReducer.fullname)
   const [isFullnameInputShown, setIsFullnameInputShown] = useState(false)
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    if (!errors.fullname) {
+      dispatch(setFullname(value))
+    }
+    setIsFullnameInputShown(false)
+  }
   return (
-    <FullnameContainer>
+    <ContentContainer>
       {!isFullnameInputShown ? (
         <Fullname onClick={() => setIsFullnameInputShown(true)}>{fullname}</Fullname>
       ) : (
@@ -22,27 +32,22 @@ export const FullnameInput: FC = () => {
           <StyledInput
             fs={2.5}
             fw={500}
+            isError={Boolean(errors.fullname)}
             defaultValue={fullname}
             name="fullname"
             autoFocus
             ref={register({
               required: { value: true, message: 'Обязательно для заполнения' },
               pattern: {
-                value: /^[^$&+,:;=?@#|'<>.^*()%!-]+$/,
+                value: fullnameRule,
                 message: 'Некорректное значение',
               },
             })}
-            onBlur={(e) => {
-              const { value } = e.target
-              if (value && !errors.fullname) {
-                dispatch(setFullname(value))
-              }
-              setIsFullnameInputShown(false)
-            }}
+            onBlur={(e) => handleBlur(e)}
           />
         </InputContainer>
       )}
       <span>{errors.fullname?.message}</span>
-    </FullnameContainer>
+    </ContentContainer>
   )
 }

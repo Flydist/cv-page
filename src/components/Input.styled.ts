@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import crossImg from '../../assets/images/cross.svg'
-import checkmarkImg from '../../assets/images/checkmark.svg'
+import crossImg from '../assets/images/cross.svg'
+import checkmarkImg from '../assets/images/checkmark.svg'
 
 type InputContainerProps = {
   isError?: boolean
@@ -10,6 +10,7 @@ type InputContainerProps = {
 type StyledInputProps = {
   fs?: number
   fw?: number
+  isError?: boolean
 }
 
 export const StyledInput = styled.input<StyledInputProps>`
@@ -27,15 +28,16 @@ export const StyledInput = styled.input<StyledInputProps>`
   :focus {
     outline: none;
     background-color: rgba(0, 0, 0, 0.06);
-    border-bottom: 1px solid black;
+    border-bottom: ${({ isError }) => (isError ? '1px solid rgba(235, 87, 87, 1)' : '1px solid black')};
   }
 `
 
 export const InputContainer = styled.div<InputContainerProps>`
+  flex: 1;
   display: inline-block;
   vertical-align: top;
   position: relative;
-  width: 55%;
+  width: 100%;
   margin-right: 0.5rem;
 
   ::after {

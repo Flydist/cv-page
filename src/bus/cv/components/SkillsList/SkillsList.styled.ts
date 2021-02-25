@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import crossImg from '../../../../assets/images/cross.svg'
-import { StyledInput } from '../../../../components/Input/Input.styled'
+import { StyledInput } from '../../../../components/Input.styled'
 
 export const SkillsBlock = styled.div`
   margin-top: 0.5rem;

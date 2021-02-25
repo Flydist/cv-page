@@ -2,61 +2,50 @@ import React, { FC, useEffect, useState } from 'react'
 import {
   Map, GoogleApiWrapper, Marker, IProvidedProps,
 } from 'google-maps-react'
-import Geocode from 'react-geocode'
-import { MapContainer } from './GoogleMap.styled'
+import { useSelector } from 'react-redux'
+import { setLatLngFromAddress } from '../../../../helpers/setLatLngFromAddress'
+import { AppState } from '../../../../init/rootReducer'
 
 const mapStyles = {
   width: '100%',
   height: '100%',
   borderRadius: '6px',
 }
-type MapProps = IProvidedProps & {
-  location: string
+const containerStyles = {
+  position: 'relative',
+  width: '100%',
+  height: '200px',
 }
-Geocode.setApiKey(`${process.env.REACT_APP_GOOGLE_API_KEY}`)
 
-const GoogleMap: FC<MapProps> = React.memo(({ google, location }) => {
-  const [latLong, setLatLong] = useState({
+const GoogleMap: FC<IProvidedProps> = React.memo(({ google }) => {
+  const location = useSelector<AppState, string>((state) => state.CvReducer.location)
+  const [latLong, setLatLng] = useState({
     lat: 54.181641,
     lng: 45.185299,
   })
 
   useEffect(() => {
-    if (location) {
-      Geocode.fromAddress(`${location}`).then(
-        (response) => {
-          const { lat, lng } = response.results[0].geometry.location
-          setLatLong({
-            lat,
-            lng,
-          })
-        },
-        (error) => {
-          // eslint-disable-next-line no-console
-          console.error(error)
-        },
-      )
-    }
+    setLatLngFromAddress(location, setLatLng)
   }, [location])
 
   return (
-    <MapContainer>
-      <Map
-        google={google}
-        style={mapStyles}
-        zoom={12}
-        initialCenter={{
-          lat: 55.755826,
-          lng: 37.6172999,
-        }}
-        center={{
-          lat: latLong.lat,
-          lng: latLong.lng,
-        }}
-      >
-        <Marker position={{ lat: latLong.lat, lng: latLong.lng }} />
-      </Map>
-    </MapContainer>
+    <Map
+      google={google}
+      style={mapStyles}
+      containerStyle={containerStyles}
+      zoom={12}
+      streetViewControl={false}
+      initialCenter={{
+        lat: 55.755826,
+        lng: 37.6172999,
+      }}
+      center={{
+        lat: latLong.lat,
+        lng: latLong.lng,
+      }}
+    >
+      <Marker position={{ lat: latLong.lat, lng: latLong.lng }} />
+    </Map>
   )
 })
 

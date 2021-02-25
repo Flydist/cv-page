@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { StyledInput } from '../../../../components/Input/Input.styled'
-import { PortfolioLink } from '../Main/Main.styled'
+import { ListLink } from '../../../../components/Common.styled'
+import { StyledInput } from '../../../../components/Input.styled'
 
-export const Experience = styled(PortfolioLink)`
+export const ExperienceLink = styled(ListLink)`
   margin-left: 0.3rem;
   border-bottom: 1px dashed;
 

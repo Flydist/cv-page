@@ -1,16 +1,23 @@
 import React, { FC, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { StyledInput } from '../../../../components/Input/Input.styled'
+import { useDispatch, useSelector } from 'react-redux'
+import { ContentContainer } from '../../../../components/Common.styled'
+import { StyledInput } from '../../../../components/Input.styled'
+import { AppState } from '../../../../init/rootReducer'
 import { setLocation } from '../../actions'
-import { useCvState } from '../../hooks/useCvState'
 import { UserLocation } from './LocationInput.styled'
 
 export const LocationInput: FC = () => {
+  const location = useSelector<AppState, string>((state) => state.CvReducer.location)
   const [isLocationInputShown, setIsLocationInputShown] = useState(false)
-  const { location } = useCvState()
   const dispatch = useDispatch()
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    dispatch(setLocation(value))
+    setIsLocationInputShown(false)
+  }
   return (
-    <div>
+    <ContentContainer>
       {!isLocationInputShown ? (
         <UserLocation onClick={() => setIsLocationInputShown(true)}>
           {location || 'Set location'}
@@ -21,13 +28,9 @@ export const LocationInput: FC = () => {
           defaultValue={location}
           name="location"
           autoFocus
-          onBlur={(e) => {
-            const { value } = e.target
-            dispatch(setLocation(value))
-            setIsLocationInputShown(false)
-          }}
+          onBlur={(e) => handleBlur(e)}
         />
       )}
-    </div>
+    </ContentContainer>
   )
 }

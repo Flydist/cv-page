@@ -25,8 +25,13 @@ const initialState = {
     },
     {
       skill: 'JavaScript',
-      experience: 3,
+      experience: 4.5,
       id: '200',
+    },
+    {
+      skill: 'Ruby',
+      experience: 2,
+      id: '300',
     },
   ],
 }

@@ -1,5 +1,10 @@
 import { createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
-import { rootReducer } from './rootReducer'
+import { loadState, saveState } from '../localStorage/localStorage'
+import { AppState, rootReducer } from './rootReducer'
 
-export const store = createStore(rootReducer, composeWithDevTools())
+const persistedState = loadState<AppState>('cvState')
+
+export const store = createStore(rootReducer, persistedState, composeWithDevTools())
+
+store.subscribe(() => saveState(store.getState(), 'cvState'))

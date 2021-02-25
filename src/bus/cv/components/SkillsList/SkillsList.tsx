@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
+import { AppState } from '../../../../init/rootReducer'
 import { addNewSkill, deleteSkill } from '../../actions'
-import { useCvState } from '../../hooks/useCvState'
+import { SkillType } from '../../types'
 import {
   AddSkillButton, Skill, SkillInput, SkillsBlock,
 } from './SkillsList.styled'
@@ -10,7 +11,21 @@ import {
 export const SkillsList: FC = () => {
   const [isInputShown, setIsInputShown] = useState(false)
   const dispatch = useDispatch()
-  const { skills } = useCvState()
+  const skills = useSelector<AppState, SkillType[]>((state) => state.CvReducer.skills, shallowEqual)
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setIsInputShown(false)
+    if (value) {
+      dispatch(
+        addNewSkill({
+          skill: value,
+          experience: 0,
+          id: uuidv4(),
+        }),
+      )
+    }
+  }
   return (
     <SkillsBlock>
       {skills
@@ -21,22 +36,7 @@ export const SkillsList: FC = () => {
           </Skill>
         ))}
       {isInputShown ? (
-        <SkillInput
-          autoFocus
-          onBlur={(e) => {
-            const { value } = e.target
-            setIsInputShown(false)
-            if (value) {
-              dispatch(
-                addNewSkill({
-                  skill: value,
-                  experience: 0,
-                  id: uuidv4(),
-                }),
-              )
-            }
-          }}
-        />
+        <SkillInput autoFocus onBlur={(e) => handleBlur(e)} />
       ) : (
         <AddSkillButton onClick={() => setIsInputShown(true)}>+</AddSkillButton>
       )}

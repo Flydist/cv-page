@@ -1,18 +1,5 @@
 import styled from 'styled-components'
 
-export const FullnameContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  width: 90%;
-
-  span {
-    font-size: 0.875rem;
-    margin: 0 0 0.5rem;
-    color: rgba(255, 0, 0, 1);
-    width: auto;
-  }
-`
 export const Fullname = styled.h2`
   display: inline-block;
   font-size: 2.5rem;
